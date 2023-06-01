@@ -11,7 +11,7 @@ function createGrid(gridSize)
         const gridElement = document.createElement("button");
         gridElement.style.width = "25px";
         gridElement.style.height = "25px";
-        gridElement.addEventListener("mouseover", (e) => 
+        gridElement.addEventListener("mousemove", () => 
         {
             gridElement.style.background = "rgb(30, 30, 30)";
         });
@@ -23,7 +23,7 @@ function resetButton()
 {
     const changeGridBtn = document.createElement("button");
     changeGridBtn.innerHTML = "change grid size";
-    changeGridBtn.addEventListener("click", (e) => 
+    changeGridBtn.addEventListener("click", () => 
     {
         while(document.body.lastElementChild)
         {
@@ -32,8 +32,26 @@ function resetButton()
         gridSize = getGridSize();
         resetButton();
         createGrid(gridSize);
+        clearButton();
     });    
     document.body.appendChild(changeGridBtn);
+};
+
+function clearButton()
+{
+    const clearBtn = document.createElement("button");
+    clearBtn.innerHTML = "clear";
+    clearBtn.addEventListener("click", () => 
+    {
+        while(document.body.lastElementChild)
+        {
+            document.body.removeChild(document.body.lastElementChild);
+        };
+        resetButton();
+        createGrid(gridSize);
+        clearButton();
+    });
+    document.body.appendChild(clearBtn);
 };
 
 function getGridSize()
@@ -54,6 +72,7 @@ function getGridSize()
     }
 };
 
-let gridSize = getGridSize();
+let gridSize = 14;
 resetButton();
 createGrid(gridSize);
+clearButton();
